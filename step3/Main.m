@@ -1,6 +1,6 @@
-% ¼Æ¼°µçÄÜ¹²ÏíµÄ»ùÓÚ·Ç¶Ô³ÆÄÉÊ²Ì¸ÅĞµÄ¶àÎ¢ÍøÔËĞĞÓÅ»¯²ßÂÔ
-%·Ç¶Ô³ÆÄÉÊ²Ì¸ÅĞ,ºÏ×÷²©ŞÄ,ÄÜÁ¿¹²¼Ã,¶àÎ¢ÍøÔËĞĞ
-%×ÓÎÊÌâ2:Î¢Íø¼äµÄ·Ç¶Ô³ÆÖ§¸¶Ğ§Òæ×î´ó»¯
+% è®¡åŠç”µèƒ½å…±äº«çš„åŸºäºéå¯¹ç§°çº³ä»€è°ˆåˆ¤çš„å¤šå¾®ç½‘è¿è¡Œä¼˜åŒ–ç­–ç•¥
+%éå¯¹ç§°çº³ä»€è°ˆåˆ¤,åˆä½œåšå¼ˆ,èƒ½é‡å…±æµ,å¤šå¾®ç½‘è¿è¡Œ
+%å­é—®é¢˜2:å¾®ç½‘é—´çš„éå¯¹ç§°æ”¯ä»˜æ•ˆç›Šæœ€å¤§åŒ–
 
 clc
 clear
@@ -18,19 +18,19 @@ C_gap=U_no-C_co;
 price_max = 100;
 price_min=1;
 pri_e=[0.40*ones(1,7),0.75*ones(1,4),1.20*ones(1,3),0.75*ones(1,4),1.20*ones(1,4),0.40*ones(1,2)];
-%% ADMMµü´ú²ÎÊıÉèÖÃ
-%À­¸ñÀÊÈÕ³Ë×Ó³õÊ¼»¯
-lambda_e_12=zeros(1,24);%MG1ºÍMG2Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_13=zeros(1,24);%MG1ºÍMG3Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_21=zeros(1,24);%MG2ºÍMG1Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_23=zeros(1,24);%MG2ºÍMG3Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_31=zeros(1,24);%MG3ºÍMG1Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_32=zeros(1,24);%MG3ºÍMG2Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-maxIter=500;  %×î´óµü´ú´ÎÊı
-tolerant=1e-3;%ÊÕÁ²¾«¶È
+%% ADMMè¿­ä»£å‚æ•°è®¾ç½®
+%æ‹‰æ ¼æœ—æ—¥ä¹˜å­åˆå§‹åŒ–
+lambda_e_12=zeros(1,24);%MG1å’ŒMG2ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_13=zeros(1,24);%MG1å’ŒMG3ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_21=zeros(1,24);%MG2å’ŒMG1ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_23=zeros(1,24);%MG2å’ŒMG3ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_31=zeros(1,24);%MG3å’ŒMG1ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_32=zeros(1,24);%MG3å’ŒMG2ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+maxIter=500;  %æœ€å¤§è¿­ä»£æ¬¡æ•°
+tolerant=1e-3;%æ”¶æ•›ç²¾åº¦
 rou = 1e-4;
-iter=1;%µü´ú´ÎÊı³õÊ¼»¯
-%¶ÔÎ¢ÍøÖ®¼äµÄ½»Ò×Á¿¼ÇÂ¼¾ØÕó³õÊ¼»¯
+iter=1;%è¿­ä»£æ¬¡æ•°åˆå§‹åŒ–
+%å¯¹å¾®ç½‘ä¹‹é—´çš„äº¤æ˜“é‡è®°å½•çŸ©é˜µåˆå§‹åŒ–
 pri_e_12=zeros(maxIter+1,24);pri_e_21=zeros(maxIter+1,24);
 pri_e_13=zeros(maxIter+1,24);pri_e_31=zeros(maxIter+1,24);
 pri_e_23=zeros(maxIter+1,24);pri_e_32=zeros(maxIter+1,24);
@@ -41,13 +41,13 @@ kesai_23 = zeros(maxIter+1,24);
 kesai_31 = zeros(maxIter+1,24);
 kesai_32 = zeros(maxIter+1,24);
 r_list1 = [];
-%% µü´ú
+%% è¿­ä»£
 while 1
-    if iter==maxIter  %ÏŞÖÆµü´ú´ÎÊı
-       disp('µü´ú²»ÊÕÁ²,²ÎÊıÓĞÎó');
+    if iter==maxIter  %é™åˆ¶è¿­ä»£æ¬¡æ•°
+       disp('è¿­ä»£ä¸æ”¶æ•›,å‚æ•°æœ‰è¯¯');
        break; 
     end 
-    display(['µü´ú»¹Î´ÊÕÁ²,µ±Ç°µü´úµÚ ', num2str(iter),' ´Î']);
+    display(['è¿­ä»£è¿˜æœªæ”¶æ•›,å½“å‰è¿­ä»£ç¬¬ ', num2str(iter),' æ¬¡']);
     [pri_e_12(iter+1,:),pri_e_13(iter+1,:),Obj_MG1(iter)]=Fun_MG1(kesai_12(iter,:),kesai_13(iter,:),lambda_e_12,lambda_e_13,rou,price_max,price_min,P_e_12,P_e_13,C_gap(1));
     [pri_e_21(iter+1,:),pri_e_23(iter+1,:),Obj_MG2(iter)]=Fun_MG2(kesai_21(iter,:),kesai_23(iter,:),lambda_e_21,lambda_e_23,rou,price_max,price_min,P_e_21,P_e_23,C_gap(2));
     [pri_e_31(iter+1,:),pri_e_32(iter+1,:),Obj_MG3(iter)]=Fun_MG3(kesai_31(iter,:),kesai_32(iter,:),lambda_e_31,lambda_e_32,rou,price_max,price_min,P_e_31,P_e_32,C_gap(3));
@@ -71,33 +71,11 @@ while 1
     elseif sqrt(s)>10*sqrt(r)
         rou = 0.5*rou;
     end
-    %ÅĞ¶ÏÊÕÁ²Ìõ¼ş
+    %åˆ¤æ–­æ”¶æ•›æ¡ä»¶
     if r<=tolerant
-       display(['µü´úÊÕÁ²,ÔÚµÚ ', num2str(iter),' ´ÎÊÕÁ²']);
+       display(['è¿­ä»£æ”¶æ•›,åœ¨ç¬¬ ', num2str(iter),' æ¬¡æ”¶æ•›']);
        break; 
     end
     iter=iter+1;
 end
-c1 = C_co(1) - sum(pri_e_12(iter+1,:).*P_e_12 + pri_e_13(iter+1,:).*P_e_13)
-c2 = C_co(2) - sum(-1*pri_e_12(iter+1,:).*P_e_12 + pri_e_23(iter+1,:).*P_e_23)
-c3 = C_co(3) - sum(-1*pri_e_13(iter+1,:).*P_e_13 + (-1)*pri_e_23(iter+1,:).*P_e_23)
-price = [pri_e_12(iter+1,:);pri_e_13(iter+1,:);pri_e_23(iter+1,:);pri_e];
-trade = [Obj_MG1(iter),Obj_MG2(iter),Obj_MG2(iter)];
-c = [c1,c2,c3];
-save("price.mat","price");
-save("trade123.mat","trade");
-save("cost over","c");
-save("r_list1","r_list1");
-% c1 =
-% 
-%    5.0474e+04
-% 
-% 
-% c2 =
-% 
-%    5.7773e+04
-% 
-% 
-% c3 =
-% 
-%    2.6046e+04
+
