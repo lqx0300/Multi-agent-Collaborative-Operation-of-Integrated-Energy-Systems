@@ -1,41 +1,41 @@
-%% ¼Æ¼°µçÄÜ¹²ÏíµÄ»ùÓÚ·Ç¶Ô³ÆÄÉÊ²Ì¸ÅĞµÄ¶àÎ¢ÍøÔËĞĞÓÅ»¯²ßÂÔ
-%·Ç¶Ô³ÆÄÉÊ²Ì¸ÅĞ,ºÏ×÷²©ŞÄ,ÄÜÁ¿¹²¼Ã,¶àÎ¢ÍøÔËĞĞ
-%×ÓÎÊÌâ1:Î¢Íø¼äµÄÉç»á³É±¾×îĞ¡»¯ÎÊÌâ
+%% è®¡åŠç”µèƒ½å…±äº«çš„åŸºäºéå¯¹ç§°çº³ä»€è°ˆåˆ¤çš„å¤šå¾®ç½‘è¿è¡Œä¼˜åŒ–ç­–ç•¥
+%éå¯¹ç§°çº³ä»€è°ˆåˆ¤,åˆä½œåšå¼ˆ,èƒ½é‡å…±æµ,å¤šå¾®ç½‘è¿è¡Œ
+%å­é—®é¢˜1:å¾®ç½‘é—´çš„ç¤¾ä¼šæˆæœ¬æœ€å°åŒ–é—®é¢˜
 
 
 clc
 clear
 close all
 
-%% ADMMµü´ú²ÎÊıÉèÖÃ
-%À­¸ñÀÊÈÕ³Ë×Ó³õÊ¼»¯
-lambda_e_12=zeros(1,24);%MG1ºÍMG2Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_13=zeros(1,24);%MG1ºÍMG3Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_21=zeros(1,24);%MG2ºÍMG1Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_23=zeros(1,24);%MG2ºÍMG3Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_31=zeros(1,24);%MG3ºÍMG1Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-lambda_e_32=zeros(1,24);%MG3ºÍMG2Ö®¼äµÄÀ­¸ñÀÊÈÕ³Ë×Ó
-maxIter=500;  %×î´óµü´ú´ÎÊı
-tolerant=1e-3;%ÊÕÁ²¾«¶È
-iter=1;%µü´ú´ÎÊı³õÊ¼»¯
+%% ADMMè¿­ä»£å‚æ•°è®¾ç½®
+%æ‹‰æ ¼æœ—æ—¥ä¹˜å­åˆå§‹åŒ–
+lambda_e_12=zeros(1,24);%MG1å’ŒMG2ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_13=zeros(1,24);%MG1å’ŒMG3ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_21=zeros(1,24);%MG2å’ŒMG1ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_23=zeros(1,24);%MG2å’ŒMG3ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_31=zeros(1,24);%MG3å’ŒMG1ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+lambda_e_32=zeros(1,24);%MG3å’ŒMG2ä¹‹é—´çš„æ‹‰æ ¼æœ—æ—¥ä¹˜å­
+maxIter=500;  %æœ€å¤§è¿­ä»£æ¬¡æ•°
+tolerant=1e-3;%æ”¶æ•›ç²¾åº¦
+iter=1;%è¿­ä»£æ¬¡æ•°åˆå§‹åŒ–
 rou = 1e-4;
 U_no=[58217,65375,33627];
-%¶ÔÎ¢ÍøÖ®¼äµÄ½»Ò×Á¿¼ÇÂ¼¾ØÕó³õÊ¼»¯
+%å¯¹å¾®ç½‘ä¹‹é—´çš„äº¤æ˜“é‡è®°å½•çŸ©é˜µåˆå§‹åŒ–
 P_e_12=zeros(maxIter+1,24);P_e_21=zeros(maxIter+1,24);
 P_e_13=zeros(maxIter+1,24);P_e_31=zeros(maxIter+1,24);
 P_e_23=zeros(maxIter+1,24);P_e_32=zeros(maxIter+1,24);
 z_12 = zeros(maxIter+1,24);z_21 = zeros(maxIter+1,24);
 z_13 = zeros(maxIter+1,24);z_31 = zeros(maxIter+1,24);
 z_23 = zeros(maxIter+1,24);z_32 = zeros(maxIter+1,24);
-%¼ÇÂ¼
+%è®°å½•
 
-%% µü´ú
+%% è¿­ä»£
 while 1
-    if iter==maxIter  %ÏŞÖÆµü´ú´ÎÊı
-       disp('µü´ú²»ÊÕÁ²,²ÎÊıÓĞÎó');
+    if iter==maxIter  %é™åˆ¶è¿­ä»£æ¬¡æ•°
+       disp('è¿­ä»£ä¸æ”¶æ•›,å‚æ•°æœ‰è¯¯');
        break; 
     end 
-    display(['µü´ú»¹Î´ÊÕÁ²,µ±Ç°µü´úµÚ ', num2str(iter),' ´Î']);
+    display(['è¿­ä»£è¿˜æœªæ”¶æ•›,å½“å‰è¿­ä»£ç¬¬ ', num2str(iter),' æ¬¡']);
     [P_e_12(iter+1,:),P_e_13(iter+1,:),Obj_MG1(iter),p1,h1,c1]=Fun_MG1(z_12(iter,:),z_13(iter,:),lambda_e_12,lambda_e_13,rou);
     [P_e_21(iter+1,:),P_e_23(iter+1,:),Obj_MG2(iter),p2,h2,c2]=Fun_MG2(z_21(iter,:),z_23(iter,:),lambda_e_21,lambda_e_23,rou);
     [P_e_31(iter+1,:),P_e_32(iter+1,:),Obj_MG3(iter),p3,h3,c3]=Fun_MG3(z_31(iter,:),z_32(iter,:),lambda_e_31,lambda_e_32,rou);
@@ -58,46 +58,11 @@ while 1
     % elseif sqrt(s)>10*sqrt(r)
     %     rou = 0.5*rou;
     % end
-    %ÅĞ¶ÏÊÕÁ²Ìõ¼ş
+    %åˆ¤æ–­æ”¶æ•›æ¡ä»¶
     if (r<=tolerant)|(iter==200) 
-       display(['µü´úÊÕÁ²,ÔÚµÚ ', num2str(iter),' ´ÎÊÕÁ²']);
+       display(['è¿­ä»£æ”¶æ•›,åœ¨ç¬¬ ', num2str(iter),' æ¬¡æ”¶æ•›']);
        break; 
     end
     iter=iter+1;
 end
-Obj_MG1(iter);
-Obj_MG2(iter);
-Obj_MG3(iter);
-time = 1:24;
-PH = [time;p1;h1;p2;h2;p3;h3];
-cost = [c1;c2;c3];
-Pe = [P_e_12(iter+1,:);P_e_13(iter+1,:);P_e_23(iter+1,:)];
-save("PH_23.mat","PH");
-save("cost_23.mat","cost");
-save("Pe.mat","Pe");
-trade = sdpvar(1,1);
-f = -(U_no(3)-Obj_MG3(iter)+trade)*(U_no(2)-Obj_MG2(iter)-trade);
-con = [U_no(3)-Obj_MG3(iter)+trade>=0;
-    U_no(2)-Obj_MG2(iter)-trade>=0;];
-ops = sdpsettings('solver','cplex','verbose',0);
 
-result = optimize(con, f, ops);
-
-if result.problem == 0     
-    
-    b = value(Obj_MG2(iter)+trade)
-    c = value(Obj_MG3(iter)-trade)
-else
- disp('Çó½âÊ§°Ü£¬Ê§°ÜÔ­ÒòÎª£º')
- disp(result.info)
-end
-v23 = [b,c];
-save("v23.mat","v23");
-% b =
-% 
-%    6.5274e+04
-% 
-% 
-% c =
-% 
-%    3.3526e+04
